@@ -33,6 +33,7 @@ class HomeScreenViewModel(private val allNewsUseCase: GetAllNewsUseCase,
     init {
         viewModelScope.launch {
             try {
+                // 调用 API 从网络加载数据
                 val news = allNewsUseCase.invoke()
                 newsViewState.value = HomeScreenViewState.Success(news = news)
             } catch (e: Exception) {
@@ -44,6 +45,7 @@ class HomeScreenViewModel(private val allNewsUseCase: GetAllNewsUseCase,
 
     fun getSavedArticles() {
         viewModelScope.launch {
+            // 调用本地缓存获取缓存数据
             savedArticles.invoke().collect{
                 savedNews.clear()
                 savedNews.addAll(it)

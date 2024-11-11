@@ -68,6 +68,7 @@ class HomeScreen : Screen {
         Column(modifier = Modifier.fillMaxSize(), horizontalAlignment = Alignment.CenterHorizontally) {
 
             when (val resultedState = state.value) {
+                // 这里页面分成功与失败两种
                 is HomeScreenViewState.Failure -> Failure(resultedState.error)
                 HomeScreenViewState.Loading -> Loading()
                 is HomeScreenViewState.Success -> TopNewsPager(resultedState.news,viewModel.savedNews, onItemClick = { webUrl ->
@@ -90,6 +91,8 @@ class HomeScreen : Screen {
             Spacer(modifier = Modifier.height(6.dp))
             Text("Breaking News", modifier = Modifier.padding(10.dp), style = TextStyle(fontWeight = FontWeight.Bold, color = Color.Black, fontSize = 21.sp))
             Spacer(modifier = Modifier.height(16.dp))
+
+            // 头部横向的内容
             HorizontalPager(
                 state = pagerState, modifier = Modifier.fillMaxWidth(),
                 pageSpacing = 20.dp, contentPadding = PaddingValues(horizontal = 30.dp)
