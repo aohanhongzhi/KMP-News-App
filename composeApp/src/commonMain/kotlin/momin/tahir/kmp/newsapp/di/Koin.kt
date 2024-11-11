@@ -1,6 +1,7 @@
 package momin.tahir.kmp.newsapp.di
 
 import io.ktor.client.HttpClient
+import io.ktor.client.engine.ProxyBuilder
 import io.ktor.client.plugins.contentnegotiation.ContentNegotiation
 import io.ktor.client.plugins.logging.DEFAULT
 import io.ktor.client.plugins.logging.LogLevel
@@ -55,6 +56,10 @@ val useCasesModule: Module = module {
 val ktorModule = module {
     single {
         HttpClient {
+            engine {
+//        代理，方便科学上网 https://ktor.io/docs/client-proxy.html#socks_proxy
+                proxy = ProxyBuilder.socks(host = "192.168.0.120", port = 20170)
+            }
             install(ContentNegotiation) {
                 json(
                     Json {
