@@ -23,9 +23,6 @@ import androidx.compose.material.CircularProgressIndicator
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -53,6 +50,7 @@ import momin.tahir.kmp.newsapp.presentation.screens.web_view.WebViewScreen
 import kotlin.math.absoluteValue
 
 class HomeScreen : Screen {
+
     @Composable
     override fun Content() {
         val viewModel = getScreenModel<HomeScreenViewModel>()
@@ -62,7 +60,7 @@ class HomeScreen : Screen {
     @Composable
     fun MainContent(viewModel: HomeScreenViewModel, navigator: Navigator = LocalNavigator.currentOrThrow) {
         val state = viewModel.newsViewState
-        LaunchedEffect(Unit){
+        LaunchedEffect(Unit) { // 传入的是 Unit不会改变，所以仅在页面第一次加载的时候开始执行。
             viewModel.getSavedArticles()
         }
         Column(modifier = Modifier.fillMaxSize(), horizontalAlignment = Alignment.CenterHorizontally) {
@@ -72,17 +70,21 @@ class HomeScreen : Screen {
                 is HomeScreenViewState.Failure -> Failure(resultedState.error)
                 HomeScreenViewState.Loading -> Loading()
                 is HomeScreenViewState.Success -> TopNewsPager(resultedState.news,viewModel.savedNews, onItemClick = { webUrl ->
+                    // 响应点击事件，使用 WebView 跳转打开网页
                     navigateToWebViewScreen(webUrl, navigator)
                 }, actionSave = {
+                    // 保存到本地数据库
                     viewModel.saveArticle(it)
                     viewModel.getSavedArticles()
                 }, onActionRemove = {
+                    // 从本地数据库移除
                     viewModel.removeArticle(it)
                     viewModel.getSavedArticles()
                 })
             }
         }
     }
+
     @OptIn(ExperimentalFoundationApi::class)
     @Composable
     fun TopNewsPager(news: News,savedNews:List<Article>, onItemClick: (String) -> Unit, actionSave: (article: Article) -> Unit,onActionRemove:(article:Article) -> Unit) {

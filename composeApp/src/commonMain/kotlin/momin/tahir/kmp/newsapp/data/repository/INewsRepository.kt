@@ -1,6 +1,5 @@
 package momin.tahir.kmp.newsapp.data.repository
 
-import kotlinx.coroutines.flow.Flow
 import momin.tahir.kmp.newsapp.data.remote.NewsDto
 import momin.tahir.kmp.newsapp.domain.model.Article
 

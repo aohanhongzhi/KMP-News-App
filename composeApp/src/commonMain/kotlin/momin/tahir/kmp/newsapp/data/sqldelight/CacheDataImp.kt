@@ -1,8 +1,5 @@
 package momin.tahir.kmp.newsapp.data.sqldelight
 
-import app.cash.sqldelight.coroutines.asFlow
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.map
 import momin.tahir.kmp.newsapp.data.repository.ICacheData
 import momin.tahir.kmp.newsapp.domain.model.Article
 

@@ -11,6 +11,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.viewinterop.AndroidView
 
+
 @Composable
 actual fun WebView(modifier: Modifier, link: String) {
     var isLoading by remember { mutableStateOf(true) }

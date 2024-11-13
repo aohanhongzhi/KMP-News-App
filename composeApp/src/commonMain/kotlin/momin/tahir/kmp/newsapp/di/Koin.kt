@@ -58,7 +58,7 @@ val ktorModule = module {
         HttpClient {
             engine {
 //        代理，方便科学上网 https://ktor.io/docs/client-proxy.html#socks_proxy
-                proxy = ProxyBuilder.socks(host = "192.168.0.116", port = 20170)
+                proxy = ProxyBuilder.socks(host = "192.168.0.122", port = 20170)
             }
             install(ContentNegotiation) {
                 json(
